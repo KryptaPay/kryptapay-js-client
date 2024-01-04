@@ -1,6 +1,6 @@
 # kryptapay-js-client
 
-## This package allows you to abstract https requests and manage sessions in a React Native Expo application.
+## This package allows to abstract https requests and manage sessions in a React Native Expo application.
 
 ### Installing
 
