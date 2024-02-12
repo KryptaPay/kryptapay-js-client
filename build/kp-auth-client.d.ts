@@ -1,6 +1,6 @@
-import { AuthError } from './lib/errors';
-import { Axios } from './lib/fetch';
-import type { AuthResponse, KryptapayAuthClientOptions, InitializeResult, Session, SignInWithPasswordCredentials, UserResponse, SignInWithOTPCredentials, SignUpCredentials, ResendParams, SignoutCredentials, ResetPasswordOptions, SecurityCodeRequestOptions } from './lib/types';
+import { AuthError } from "./lib/errors";
+import { Axios } from "./lib/fetch";
+import type { AuthResponse, KryptapayAuthClientOptions, InitializeResult, Session, SignInWithPasswordCredentials, UserResponse, SignInWithOTPCredentials, SignUpCredentials, ResendParams, SignoutCredentials, ResetPasswordOptions, SecurityCodeRequestOptions } from "./lib/types";
 export default class KryptaPayAuthClient {
     /**
      * The storage key used to identify the values saved in localStorage

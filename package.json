@@ -1,6 +1,6 @@
 {
   "name": "kryptapay-js-client",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A JavaScript client that allows the abstraction of https requests, management of sessions in a RN Expo application.",
   "scripts": {
     "test": "jest --config jestconfig.json",

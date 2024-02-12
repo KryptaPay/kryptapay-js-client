@@ -1,6 +1,6 @@
-import { Upload, UploadOptions } from './storage';
+import { Upload, UploadOptions } from "./storage";
 declare const axios: any;
-import * as FileSystem from 'expo-file-system';
+import * as FileSystem from "expo-file-system";
 export type Axios = typeof axios;
 export type FileSystemType = typeof FileSystem;
 export type KryptapayClientOptions = {
@@ -31,9 +31,9 @@ export type KryptapayClientOptions = {
         headers?: Record<string, string>;
     };
 };
-import { AuthError } from './errors';
+import { AuthError } from "./errors";
 /** One of the providers supported by KryptqPay. */
-export type Provider = 'apple' | 'google';
+export type Provider = "apple" | "google";
 export type KryptapayAuthClientOptions = {
     url?: string;
     headers?: {
@@ -154,6 +154,8 @@ export type SignUpCredentials = {
     refererUuid?: string;
     /** The push notification token. */
     pushToken: string;
+    /** The user's preferred language. */
+    preferredLanguage: "fr_FR" | "en_EN";
 };
 export type SignInWithPasswordCredentials = {
     /** The user's email address. */
@@ -216,7 +218,7 @@ export type ResetPasswordOptions = {
     /** The security code. */
     securityCode: string;
     /** The security code scope. */
-    scope?: 'passwordReset';
+    scope?: "passwordReset";
 };
 export type SecurityCodeRequestOptions = {
     /** The user's email address or phone number. */
@@ -224,12 +226,12 @@ export type SecurityCodeRequestOptions = {
     /** The security code scope. */
     scope: string;
 };
-export type AuthFlowType = 'client_credentials' | 'password';
+export type AuthFlowType = "client_credentials" | "password";
 export type SignInWithIdTokenCredentials = {
     /**
      * Only Apple and Google ID tokens are supported for use from within iOS or Android applications.
      */
-    provider: 'google' | 'apple';
+    provider: "google" | "apple";
     /** ID token issued by Apple or Google. */
     token: string;
     /** If the ID token contains a `nonce`, then the hash of this value is compared to the value in the ID token. */
@@ -239,13 +241,13 @@ export type SignInWithIdTokenCredentials = {
         captchaToken?: string;
     };
 };
-export type MobileOtpType = 'sms' | 'phone_change';
-export type EmailOtpType = 'signup' | 'recovery' | 'email_change' | 'email';
+export type MobileOtpType = "sms" | "phone_change";
+export type EmailOtpType = "signup" | "recovery" | "email_change" | "email";
 export type ResendParams = {
-    type: Extract<EmailOtpType, 'signup' | 'email_change'>;
+    type: Extract<EmailOtpType, "signup" | "email_change">;
     email: string;
 } | {
-    type: Extract<MobileOtpType, 'sms' | 'phone_change'>;
+    type: Extract<MobileOtpType, "sms" | "phone_change">;
     phone: string;
 };
 export type InitializeResult = {
@@ -286,7 +288,7 @@ export type RpcInvokeOptions = {
     /**
      * The HTTP verb of the request
      */
-    method?: 'POST' | 'GET';
+    method?: "POST" | "GET";
     /**
      * The body of the request.
      */
