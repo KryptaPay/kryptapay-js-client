@@ -272,7 +272,7 @@ class KryptaPayAuthClient {
                     return { error };
                 }
                 return {
-                    error: new AuthUnknownError("Unexpected error during initialization", error),
+                    error: new AuthUnknownError('Unexpected error during initialization', error),
                 };
             }
         });
@@ -290,9 +290,9 @@ class KryptaPayAuthClient {
             try {
                 yield this._removeSession();
                 let res;
-                if ("phone" in credentials && "email" in credentials) {
+                if ('phone' in credentials && 'email' in credentials) {
                     const { phone, password, email, userName, country, refererUuid, pushToken, preferredLanguage, } = credentials;
-                    res = yield _request(this.fetch, "POST", `${this.url}/signup`, {
+                    res = yield _request(this.fetch, 'POST', `${this.url}/signup`, {
                         headers: this.headers,
                         body: {
                             data: {
@@ -309,7 +309,7 @@ class KryptaPayAuthClient {
                     });
                 }
                 else {
-                    throw new AuthInvalidCredentialsError("You must provide either an email or phone number and a password");
+                    throw new AuthInvalidCredentialsError('You must provide either an email or phone number and a password');
                 }
                 const { data, error } = res;
                 if (error || !data) {
@@ -339,36 +339,36 @@ class KryptaPayAuthClient {
             try {
                 yield this._removeSession();
                 let res;
-                if ("email" in credentials) {
+                if ('email' in credentials) {
                     const { email, password } = credentials;
-                    res = yield _request(this.fetch, "POST", `${this.url}/token`, {
+                    res = yield _request(this.fetch, 'POST', `${this.url}/token`, {
                         headers: this.headers,
                         body: {
                             data: {
                                 username: email,
                                 password,
-                                grant_type: "password",
-                                scope: "user",
+                                grant_type: 'password',
+                                scope: 'user',
                             },
                         },
                     });
                 }
-                else if ("phone" in credentials) {
+                else if ('phone' in credentials) {
                     const { phone, password } = credentials;
-                    res = yield _request(this.fetch, "POST", `${this.url}/token`, {
+                    res = yield _request(this.fetch, 'POST', `${this.url}/token`, {
                         headers: this.headers,
                         body: {
                             data: {
                                 username: phone,
                                 password,
-                                grant_type: "password",
-                                scope: "user",
+                                grant_type: 'password',
+                                scope: 'user',
                             },
                         },
                     });
                 }
                 else {
-                    throw new AuthInvalidCredentialsError("You must provide either an email or phone number and a password");
+                    throw new AuthInvalidCredentialsError('You must provide either an email or phone number and a password');
                 }
                 const { data, error } = res;
                 if (!data || !data.user) {
@@ -394,9 +394,9 @@ class KryptaPayAuthClient {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 yield this._removeSession();
-                if ("ROTP" in credentials) {
+                if ('ROTP' in credentials) {
                     const { userId, ROTP, TOTP, options } = credentials;
-                    const res = yield _request(this.fetch, "POST", `${this.url}/otp`, {
+                    const res = yield _request(this.fetch, 'POST', `${this.url}/otp`, {
                         headers: this.headers,
                         body: {
                             data: {
@@ -421,7 +421,7 @@ class KryptaPayAuthClient {
                         error,
                     };
                 }
-                throw new AuthInvalidCredentialsError("You must provide an ROTP.");
+                throw new AuthInvalidCredentialsError('You must provide an ROTP.');
             }
             catch (error) {
                 if (isAuthApiError(error)) {
@@ -438,9 +438,9 @@ class KryptaPayAuthClient {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 yield this._removeSession();
-                if ("userId" in credentials) {
+                if ('userId' in credentials) {
                     const { userId, options } = credentials;
-                    const res = yield _request(this.fetch, "POST", `${this.url}/signout`, {
+                    const res = yield _request(this.fetch, 'POST', `${this.url}/signout`, {
                         headers: this.headers,
                         body: {
                             data: {
@@ -452,13 +452,13 @@ class KryptaPayAuthClient {
                     if (!data) {
                         return {
                             data: null,
-                            error: new AuthError("Response data is missing"),
+                            error: new AuthError('Response data is missing'),
                         };
                     }
                     return { data, error };
                 }
                 else {
-                    throw new AuthInvalidCredentialsError("You must provide an userId.");
+                    throw new AuthInvalidCredentialsError('You must provide an userId.');
                 }
             }
             catch (error) {
@@ -477,9 +477,9 @@ class KryptaPayAuthClient {
             try {
                 yield this._removeSession();
                 const endpoint = `${this.url}/resend`;
-                if ("email" in credentials) {
+                if ('email' in credentials) {
                     const { email, type } = credentials;
-                    const { error } = yield _request(this.fetch, "POST", endpoint, {
+                    const { error } = yield _request(this.fetch, 'POST', endpoint, {
                         headers: this.headers,
                         body: {
                             email,
@@ -488,9 +488,9 @@ class KryptaPayAuthClient {
                     });
                     return { data: { user: null, session: null }, error };
                 }
-                else if ("phone" in credentials) {
+                else if ('phone' in credentials) {
                     const { phone, type } = credentials;
-                    const { error } = yield _request(this.fetch, "POST", endpoint, {
+                    const { error } = yield _request(this.fetch, 'POST', endpoint, {
                         headers: this.headers,
                         body: {
                             phone,
@@ -499,7 +499,7 @@ class KryptaPayAuthClient {
                     });
                     return { data: { user: null, session: null }, error };
                 }
-                throw new AuthInvalidCredentialsError("You must provide either an email or phone number and a type");
+                throw new AuthInvalidCredentialsError('You must provide either an email or phone number and a type');
             }
             catch (error) {
                 if (isAuthError(error)) {
@@ -540,17 +540,19 @@ class KryptaPayAuthClient {
     }
     /**
      * Sends a security code request to an email address.
-     * @param email The email address of the user.
+     * @param to The email address or phone number of the receiver.
+     * @param preferredLanguage The user preferred language.
      * @param scope The code scope.
      */
     requestSecuritycode(options) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const { to, scope } = options;
-                const res = yield _request(this.fetch, "POST", `${this.url}/code`, {
+                const { to, preferredLanguage, scope } = options;
+                const res = yield _request(this.fetch, 'POST', `${this.url}/code`, {
                     body: {
                         data: {
                             to,
+                            preferredLanguage,
                             scope,
                         },
                         headers: this.headers,
@@ -581,7 +583,7 @@ class KryptaPayAuthClient {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { email, newPassword, oldPassword, securityCode, scope } = options;
-                const res = yield _request(this.fetch, "POST", `${this.url}/recover`, {
+                const res = yield _request(this.fetch, 'POST', `${this.url}/recover`, {
                     body: {
                         data: {
                             email,
@@ -611,10 +613,10 @@ class KryptaPayAuthClient {
         });
     }
     _isValidSession(maybeSession) {
-        const isValidSession = typeof maybeSession === "object" &&
+        const isValidSession = typeof maybeSession === 'object' &&
             maybeSession !== null &&
-            "accessToken" in maybeSession &&
-            "user" in maybeSession;
+            'accessToken' in maybeSession &&
+            'user' in maybeSession;
         return isValidSession;
     }
     /**
@@ -670,9 +672,9 @@ class KryptaPayAuthClient {
     }
 }
 
-require("axios").default;
+require('axios').default;
 class RpcError extends Error {
-    constructor(message = "Failed to send a Rpc", name = "RpcError", context) {
+    constructor(message = 'Failed to send a Rpc', name = 'RpcError', context) {
         super(message);
         this.__isRpcError = true;
         this.name = name;
