@@ -340,13 +340,14 @@ class KryptaPayAuthClient {
                 yield this._removeSession();
                 let res;
                 if ('email' in credentials) {
-                    const { email, password } = credentials;
+                    const { email, password, deviceId } = credentials;
                     res = yield _request(this.fetch, 'POST', `${this.url}/token`, {
                         headers: this.headers,
                         body: {
                             data: {
                                 username: email,
                                 password,
+                                deviceId,
                                 grant_type: 'password',
                                 scope: 'user',
                             },
@@ -354,13 +355,14 @@ class KryptaPayAuthClient {
                     });
                 }
                 else if ('phone' in credentials) {
-                    const { phone, password } = credentials;
+                    const { phone, password, deviceId } = credentials;
                     res = yield _request(this.fetch, 'POST', `${this.url}/token`, {
                         headers: this.headers,
                         body: {
                             data: {
                                 username: phone,
                                 password,
+                                deviceId,
                                 grant_type: 'password',
                                 scope: 'user',
                             },
