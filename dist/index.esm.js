@@ -35,7 +35,7 @@ typeof SuppressedError === "function" ? SuppressedError : function (error, suppr
     return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
 };
 
-const version = '0.4.0';
+const version = '0.5.0';
 
 // constants.ts
 const DEFAULT_HEADERS = { 'X-Client-Info': `kryptapay-js/${version}` };
