@@ -1,6 +1,6 @@
 # kryptapay-js-client
 
-## This package allows to abstract https requests and manage sessions in a React Native Expo application.
+## This package allows to abstract https requests and manage sessions in a React Native Expo application. It is not yet supposed to be used for every backend api structure. Feel free to contact [us](https://www.krypta-pay.com) if you want to contribute in making this package generic for any backend.
 
 ### Installing
 
@@ -10,7 +10,7 @@ npm i kryptapay-js-client
 
 ### Usage
 
-- Init client
+-   Init client
 
 ```
 import { createClient } from 'kryptapay-js-client';
@@ -18,7 +18,7 @@ import { createClient } from 'kryptapay-js-client';
 const kryptapayClient = createClient(API_URL, KEY, SECRET);
 ```
 
-- Signup
+-   Signup
 
 To create a user:
 
@@ -30,7 +30,7 @@ const { data, error } = await kryptapayClient.auth.signUp(data);
 
 It will insert a user into database.
 
-- Signin
+-   Signin
 
 To login:
 
@@ -42,7 +42,7 @@ const { data, error } = await kryptapayClient.auth.signInWithPassword(data);
 
 It will start a user session.
 
-- Get a item
+-   Get a item
 
 To call a protected endpoint
 
@@ -60,7 +60,7 @@ const options = {
 
 It will get item with the id {:id} using the existing session.
 
-- Signout
+-   Signout
 
 To end the current session:
 
@@ -69,3 +69,7 @@ const { data, error } = await kryptapayClient.auth.signOut(data);
     if (error) throw error;
     return data.msg;
 ```
+
+### Usage API specifications
+
+Auth controller is at the path /auth and each services [services] in his /[service] path

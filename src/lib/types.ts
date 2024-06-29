@@ -36,41 +36,35 @@ export type KryptapayClientOptions = {
 
 import { AuthError } from './errors';
 
-/** One of the providers supported by KryptqPay. */
+/** One of the providers supported by KryptaPay. */
 export type Provider = 'apple' | 'google';
 
 export type KryptapayAuthClientOptions = {
-    /* The URL of the GoTrue server. */
+    /* The URL of the auth controller. */
     url?: string;
-    /* Any additional headers to send to the GoTrue server. */
+    /* Any additional headers to send to the auth controller. */
     headers?: { [key: string]: string };
     /* Optional key name used for storing tokens in local storage. */
     storageKey?: string;
-    /* Set to "true" if you want to automatically detects OAuth grants in the URL and signs in the user. */
-    // detectSessionInUrl?: boolean
-    /* Set to "true" if you want to automatically refresh the token before expiring. */
-    // autoRefreshToken?: boolean
     /* Set to "true" if you want to automatically save the user session into local storage. If set to false, session will just be saved in memory. */
     persistSession?: boolean;
-    /* Provide your own local storage implementation to use instead of the browser's local storage. */
-    // storage?: SupportedStorage;
     /* A custom fetch implementation. */
     fetch?: Axios;
-    /* If set to 'pkce' PKCE flow. Defaults to the 'implicit' flow otherwise */
-    // flowType?: AuthFlowType
 };
 
 export type KryptapayRpcClientOptions = {
-    /* The URL of the GoTrue server. */
+    /* The root URL of the services. */
     url: string;
+    /* The headers. */
     headers: Record<string, string>;
     /* A custom fetch implementation. */
     customFetch?: Axios;
 };
 
 export type KryptapayStorageClientOptions = {
-    /* The URL of the GoTrue server. */
+    /* The URL of the storage controller. */
     url: string;
+    /* The headers. */
     headers: Record<string, string>;
     /* A upload function. */
     upload?: Upload;
@@ -133,18 +127,6 @@ export interface Session {
     user: User;
 }
 
-export interface UserIdentity {
-    id: string;
-    user_id: string;
-    identity_data?: {
-        [key: string]: any;
-    };
-    provider: string;
-    created_at?: string;
-    last_sign_in_at?: string;
-    updated_at?: string;
-}
-
 export interface User {
     id: string;
     email?: string;
@@ -204,6 +186,7 @@ export type SignInWithPasswordCredentials =
           email?: string;
           /** The user's password. */
           password: string;
+          /** The user's current device. */
           deviceId: string | null;
       }
     | {
@@ -211,6 +194,7 @@ export type SignInWithPasswordCredentials =
           phone: string;
           /** The user's password. */
           password: string;
+          /** The user's current device. */
           deviceId: string | null;
       };
 
@@ -221,39 +205,11 @@ export type SignInWithOTPCredentials = {
     ROTP: string;
     /** The totp. */
     TOTP?: string;
-    options?: {
-        /** The redirect url embedded in the email link */
-        emailRedirectTo?: string;
-        /** If set to false, this method will not create a new user. Defaults to true. */
-        shouldCreateUser?: boolean;
-        /**
-         * A custom data object to store the user's metadata. This maps to the `auth.users.user_metadata` column.
-         *
-         * The `data` should be a JSON object that includes user-specific info, such as their first and last name.
-         */
-        data?: object;
-        /** Verification token received when the user completes the captcha on the site. */
-        captchaToken?: string;
-    };
 };
 
 export type SignoutCredentials = {
     /** The user's email address. */
     userId: string;
-    options?: {
-        /** The redirect url embedded in the email link */
-        emailRedirectTo?: string;
-        /** If set to false, this method will not create a new user. Defaults to true. */
-        shouldCreateUser?: boolean;
-        /**
-         * A custom data object to store the user's metadata. This maps to the `auth.users.user_metadata` column.
-         *
-         * The `data` should be a JSON object that includes user-specific info, such as their first and last name.
-         */
-        data?: object;
-        /** Verification token received when the user completes the captcha on the site. */
-        captchaToken?: string;
-    };
 };
 
 export type ResetPasswordOptions = {

@@ -256,7 +256,7 @@ export default class KryptaPayAuthClient {
             await this._removeSession();
 
             if ('ROTP' in credentials) {
-                const { userId, ROTP, TOTP, options } = credentials;
+                const { userId, ROTP, TOTP } = credentials;
                 const res: AuthResponse = await _request(
                     this.fetch,
                     'POST',
@@ -309,7 +309,7 @@ export default class KryptaPayAuthClient {
             await this._removeSession();
 
             if ('userId' in credentials) {
-                const { userId, options } = credentials;
+                const { userId } = credentials;
                 const res: AuthResponse = await _request(
                     this.fetch,
                     'POST',

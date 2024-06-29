@@ -35,7 +35,7 @@ typeof SuppressedError === "function" ? SuppressedError : function (error, suppr
     return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
 };
 
-const version = '0.1.0';
+const version = '0.4.0';
 
 // constants.ts
 const DEFAULT_HEADERS = { 'X-Client-Info': `kryptapay-js/${version}` };
@@ -397,7 +397,7 @@ class KryptaPayAuthClient {
             try {
                 yield this._removeSession();
                 if ('ROTP' in credentials) {
-                    const { userId, ROTP, TOTP, options } = credentials;
+                    const { userId, ROTP, TOTP } = credentials;
                     const res = yield _request(this.fetch, 'POST', `${this.url}/otp`, {
                         headers: this.headers,
                         body: {
@@ -441,7 +441,7 @@ class KryptaPayAuthClient {
             try {
                 yield this._removeSession();
                 if ('userId' in credentials) {
-                    const { userId, options } = credentials;
+                    const { userId } = credentials;
                     const res = yield _request(this.fetch, 'POST', `${this.url}/signout`, {
                         headers: this.headers,
                         body: {
